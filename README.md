@@ -20,13 +20,13 @@ IDEA、Navicat...
 
 > 项目演示
 
-![4](E:\idea\autonews\assets\4.jpg)
+![1](https://gitee.com/zhoututu/auto-news/raw/master/assets/1.jpg)
 
-![1](E:\idea\autonews\assets\1.jpg)
+![2](https://gitee.com/zhoututu/auto-news/raw/master/assets/2.jpg)
 
-![2](E:\idea\autonews\assets\2.jpg)
+![3](https://gitee.com/zhoututu/auto-news/raw/master/assets/3.jpg)
 
-![3](E:\idea\autonews\assets\3.jpg)
+![4](https://gitee.com/zhoututu/auto-news/raw/master/assets/4.jpg)
 
 
 
