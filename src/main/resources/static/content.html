@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>网络热点新闻转载系统</title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<script src="js/jquery-2.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<script>
+		$(function () {
+			setTimeout(function () {
+				for (var i = 0;i < $(".header-board-nav li a").length;i++){
+					$(".header-board-nav li a").eq(i).removeClass("select-header-board-nav");
+				}
+			},500);
+		});
+	</script>
+	<body>
+
+		<div class="header">
+			<div class="header-board">
+				<img src="img/logo.png" class="header-board-logo" >
+				<ul class="header-board-nav">
+					<li><a href="" class="select-header-board-nav">互联网新闻</a></li>
+					<li><a href="">发现</a></li>
+					<li><a href="">百度时事新闻</a></li>
+					<li><a href="">没了</a></li>
+					<li><a href="">你好</a></li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div style="font-size: 22px;width: 900px;margin: auto;margin-top: 80px;color: rgba(0,0,0,0.4);font-weight: bold;cursor: pointer;" onclick="window.history.go(-1)">返回</div>
+
+		<div class="content">
+			<div class="content-title"></div>
+			<div class="content-time"></div>
+			<div class="content-text"></div>
+		</div>
+
+	</body>
+</html>

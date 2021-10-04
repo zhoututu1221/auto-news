@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>网络热点新闻转载系统-后台</title>
+		<link rel="stylesheet" type="text/css" href="adminStyle.css" />
+		<script src="../js/jquery-2.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/wangEditor3/wangEditor.min.js"></script>
+		<script src="adminPublic.js" type="text/javascript" charset="utf-8"></script>
+		<script src="isLogin.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<style>
+		.content-list input{
+			background-color: transparent;
+		}
+	</style>
+	<script type="text/javascript">
+		$(function () {
+			//    获取分类
+			$.ajax({
+				url: "/getClassify",
+				type: 'POST',
+				data: {
+				},
+				success: function(result){
+
+					var data = "";
+					var data2 = "";
+
+					for(var i = 0;i < result.length;i++){
+						data += '<div class="content-classify-board">\n' +
+								'\t\t\t\t\t<font>'+result[i].classify_name+'</font>\n' +
+								'\t\t\t\t\t<label onclick="deleteClassify(\''+result[i].classify_name+'\')">x</label>\n' +
+								'\t\t\t\t</div>';
+						data2 += '<option>'+result[i].classify_name+'</option>';
+					}
+
+					$(".content-classify-input").eq(0).before(data);
+					$(".content-select").eq(0).html(data2);
+
+					//    获取该分类下的规则
+					getGather($(".content-select option").eq(0).html());
+
+				},
+				error:function(e){
+					console.log(e.status);
+				}
+			});
+		});
+	</script>
+	<body>
+
+		<div class="header">
+			<div class="header-board">
+				<font class="header-title">汇新闻<label>「admin」</label></font>
+				<ul class="header-nav">
+					<li><a href="adminIndex.html">配置数据</a></li>
+					<li><a href="adminEdit.html" class="select-header-nav">新闻编辑</a></li>
+					<li id="quit-login"><a>退出登录</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="content" style="width: 1550px;min-width: 1550px">
+			<div class="function-title">功能</div>
+			<div class="content-function">
+				<label class="content-function-search"><input type="text" placeholder="请输入要搜索的内容" />
+					<font>搜索</font>
+				</label>
+				<label class="content-function-add">手动添加新闻</label>
+			</div>
+			<div class="function-title">新闻列表</div>
+			<table class="content-list" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<th>ID</th>
+					<th>新闻分类</th>
+					<th>新闻标题</th>
+					<th>新闻作者</th>
+					<th>新闻来源</th>
+					<th>新闻点击量</th>
+					<th>新闻内容</th>
+					<th>发布时间</th>
+					<th>采集时间</th>
+					<th>操作</th>
+				</tr>
+				<tbody id="list">
+
+				</tbody>
+			</table>
+			<ul class="paging">
+				<li id="before"><</li>
+				<font id="paging-count-select"></font>
+				<li id="after">></li>
+			</ul>
+		</div>
+
+		<div class="details" style="display: none;">
+			<div class="details-board">
+				<div class="function-title" id="function-title">编辑</div>
+				<label class="details-board-input">
+					<font>新闻分类：</font>
+					<select class="content-select" style="height: 32px;border-radius: 0;line-height: 32px;font-size: 14px;">
+
+					</select>
+				</label>
+				<label class="details-board-input" id="boardNewsTitle">
+					<font>新闻标题：</font><input type="text" placeholder="请输入新闻标题..." />
+				</label>
+				<label class="details-board-input" id="boardNewsTime">
+					<font>发布时间：</font><input type="text" placeholder="xxxx-xx-xx xx:xx:xx" />
+				</label>
+				<label style="width: 100%;" class="details-board-input">
+					<font>新闻内容：</font>
+					<div id="editor"></div>
+				</label>
+				<div class="details-board-button">
+					<div id="update">更新</div>
+					<div id="addNews">添加</div>
+					<div id="quit" style="background-color: #999999;" onclick="$('.details').eq(0).fadeOut(300)">取消</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

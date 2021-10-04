@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>网络热点新闻转载系统-后台</title>
+		<link rel="stylesheet" type="text/css" href="adminStyle.css" />
+		<script src="../js/jquery-2.0.0.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="adminPublic.js" type="text/javascript" charset="utf-8"></script>
+		<script src="isLogin.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<script type="text/javascript">
+		$(function () {
+			//    获取分类
+			$.ajax({
+				url: "/getClassify",
+				type: 'POST',
+				data: {
+				},
+				success: function(result){
+
+					var data = "";
+					var data2 = "";
+
+					for(var i = 0;i < result.length;i++){
+						data += '<div class="content-classify-board">\n' +
+								'\t\t\t\t\t<font>'+result[i].classify_name+'</font>\n' +
+								'\t\t\t\t\t<label onclick="deleteClassify(\''+result[i].classify_name+'\')">x</label>\n' +
+								'\t\t\t\t</div>';
+						data2 += '<option>'+result[i].classify_name+'</option>';
+					}
+
+					$(".content-classify-input").eq(0).before(data);
+					$(".content-select").eq(0).html(data2);
+
+					//    获取该分类下的规则
+					getGather($(".content-select option").eq(0).html());
+
+				},
+				error:function(e){
+					console.log(e.status);
+				}
+			});
+		});
+	</script>
+	<body>
+
+		<div class="header">
+			<div class="header-board">
+				<font class="header-title">汇新闻<label>「admin」</label></font>
+				<ul class="header-nav">
+					<li><a href="adminIndex.html" class="select-header-nav">配置数据</a></li>
+					<li><a href="adminEdit.html" >新闻编辑</a></li>
+					<li id="quit-login"><a>退出登录</a></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="content">
+			<div class="function-title">分类</div>
+			<div class="content-classify">
+
+				<div class="content-classify-input">
+					<input type="text" placeholder="请输入分类名" />
+					<font>+</font>
+				</div>
+			</div>
+			
+			<div class="function-title">采集规则</div>
+			<select class="content-select">
+
+			</select>
+			
+			<div class="content-inf">
+				<label><font>URL：</font><input type="text" placeholder="请输入要采集的网址..." /></label>
+				<label><font>内容链接表达式：</font><input type="text" placeholder="请输入表达式..." /></label>
+				<label><font>最大页数(全部采集用)：</font><input type="number" placeholder="请输入最大页数..." disabled /></label>
+				<label><font>翻页表达式(全部采集用)：</font><input type="text" placeholder="请输入表达式..." disabled /></label>
+				<label><font>新闻标题表达式：</font><input type="text" placeholder="请输入表达式..." /></label>
+				<label><font>新闻内容表达式：</font><input type="text" placeholder="请输入表达式..." /></label>
+				<label><font>新闻时间表达式：</font><input type="text" placeholder="请输入表达式..." /></label>
+				<label><font>采集时间间隔<br />(自动采集用,默认为15分钟)：</font><input type="number" placeholder="请输入时间间隔(分钟)..." /></label>
+				<label><font>过滤点击数<br />(只采集该点击数以上的新闻)：</font><input type="number" placeholder="请输入过滤点击率数..." /></label>
+				<div class="content-inf-button">
+					<button type="button" id="all" style="display: none">全部采集</button>
+					<button type="button" id="auto">自动采集(关)</button>
+					<button type="button" id="manual">手动采集一次</button>
+				</div>
+			</div>
+			
+		</div>
+
+	</body>
+</html>
